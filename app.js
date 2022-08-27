@@ -9,7 +9,14 @@ function makeRows(rows, columns) {
   for (i = 0; i < rows * columns; i++) {
     let cell = document.createElement("div");
     container.appendChild(cell).className = "grid-item";
+    fillCell(cell);
   }
 }
 
 makeRows(16, 16);
+
+function fillCell(cell) {
+  cell.addEventListener("mouseover", () => {
+    cell.style.backgroundColor = "black";
+  });
+}
