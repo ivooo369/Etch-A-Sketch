@@ -3,14 +3,19 @@
   --grid-rows: 1;
 }
 
-#container {
+.grid {
   display: grid;
-  gap: 0.1em;
-  grid-template-rows: repeat(var(--grid-rows), 30px);
-  grid-template-columns: repeat(var(--grid-cols), 30px);
+  gap: 0.2em;
+  width: 960px;
+  overflow: hidden;
+  grid-template-rows: repeat(var(--grid-rows), 1fr);
+  grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr));
 }
 
 .grid-item {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
   padding: 1em;
   border: 1px solid black;
   text-align: center;
