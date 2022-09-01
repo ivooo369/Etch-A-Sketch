@@ -5,7 +5,7 @@ document.body.onmousedown = () => (isMouseDown = true);
 document.body.onmouseup = () => (isMouseDown = false);
 
 let isMouseHover = false;
-document.body.onmousenter = () => (isMouseHover = true);
+document.body.onmouseenter = () => (isMouseHover = true);
 document.body.onmouseleave = () => (isMouseHover = false);
 
 function makeGrid(rows, columns) {
@@ -21,18 +21,20 @@ function makeGrid(rows, columns) {
   }
 }
 clickGridSizeButtons();
-makeGrid(16, 16);
+makeGrid(15, 15);
 
 function fillCellBlack(cell) {
-  cell.addEventListener("mouseover", () => {
-    cell.style.backgroundColor = "black";
+  cell.addEventListener("mousemove", () => {
+    if (isMouseDown) {
+      cell.style.backgroundColor = "black";
+    }
   });
 }
 
 function fillCellRainbow(cell) {
   const rainbowColors = ["#9400D3", "#4B0082", "#0000FF", "#00FF00", "#FFFF00", "#FF7F00", "#FF0000"];
   const randomColor = rainbowColors[Math.floor(Math.random() * rainbowColors.length)];
-  cell.addEventListener("mouseenter", () => {
+  cell.addEventListener("mousemove", () => {
     if (isMouseDown) {
       cell.style.backgroundColor = `${randomColor}`;
     }
@@ -40,8 +42,10 @@ function fillCellRainbow(cell) {
 }
 
 function erase(cell) {
-  cell.addEventListener("mouseover", () => {
-    cell.style.backgroundColor = "white";
+  cell.addEventListener("mousemove", () => {
+    if (isMouseDown) {
+      cell.style.backgroundColor = "white";
+    }
   });
 }
 
@@ -80,34 +84,34 @@ function clickButtonClear() {
 }
 
 function clickGridSizeButtons() {
-  const button8x8 = document.querySelector("#btn-8x8");
-  button8x8.addEventListener("click", function () {
+  const button10x10 = document.querySelector("#btn-10x10");
+  button10x10.addEventListener("click", function () {
     document.querySelectorAll(".grid-item").forEach((e) => e.remove());
-    makeGrid(8, 8);
+    makeGrid(10, 10);
   });
 
-  const button16x16 = document.querySelector("#btn-16x16");
-  button16x16.addEventListener("click", function () {
+  const button15x15 = document.querySelector("#btn-15x15");
+  button15x15.addEventListener("click", function () {
     document.querySelectorAll(".grid-item").forEach((e) => e.remove());
-    makeGrid(16, 16);
+    makeGrid(15, 15);
   });
 
-  const button24x24 = document.querySelector("#btn-24x24");
-  button24x24.addEventListener("click", function () {
+  const button20x20 = document.querySelector("#btn-20x20");
+  button20x20.addEventListener("click", function () {
     document.querySelectorAll(".grid-item").forEach((e) => e.remove());
-    makeGrid(24, 24);
+    makeGrid(20, 20);
   });
 
-  const button32x32 = document.querySelector("#btn-32x32");
-  button32x32.addEventListener("click", function () {
+  const button25x25 = document.querySelector("#btn-25x25");
+  button25x25.addEventListener("click", function () {
     document.querySelectorAll(".grid-item").forEach((e) => e.remove());
-    makeGrid(32, 32);
+    makeGrid(25, 25);
   });
 
-  const button40x40 = document.querySelector("#btn-40x40");
-  button40x40.addEventListener("click", function () {
+  const button30x30 = document.querySelector("#btn-30x30");
+  button30x30.addEventListener("click", function () {
     document.querySelectorAll(".grid-item").forEach((e) => e.remove());
-    makeGrid(40, 40);
+    makeGrid(30, 30);
   });
 }
 
