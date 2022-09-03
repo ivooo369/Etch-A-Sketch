@@ -15,19 +15,21 @@
         <h1>Etch-A-Sketch</h1>
 
         <div class="grid-size">
-            <button id="btn-10x10" class="btn-grid-size">10 x 10</button>
-            <button id="btn-15x15" class="btn-grid-size">15 x 15</button>
-            <button id="btn-20x20" class="btn-grid-size">20 x 20</button>
-            <button id="btn-25x25" class="btn-grid-size">25 x 25</button>
-            <button id="btn-30x30" class="btn-grid-size">30 x 30</button>
+            <button class="btn-set-grid-size">Set Grid Size</button>
+            <input type="text" id="grid-size">
         </div>
         <div class="grid"></div>
         <div class="settings">
-            <button class="btn-new-grid">New Grid</button>
-            <button class="btn-black">Black</button>
-            <button class="btn-rainbow">Rainbow</button>
-            <button class="btn-eraser">Eraser</button>
-            <button class="btn-clear">Clear</button>
+            <label for="pen-color" class="label-custom-color" id="label-pen-color">Pen Color</label>
+            <input type="color" id="input-pen-color">
+            <label for="background-color" class="label-custom-color" id="label-background-color">Background
+                Color</label>
+            <input type="color" id="input-background-color">
+            <button id="btn-black">Black</button>
+            <button id="btn-rainbow">Rainbow</button>
+            <button id="btn-opacity">Opacity</button>
+            <button id="btn-eraser">Eraser</button>
+            <button id="btn-clear">Clear</button>
         </div>
     </div>
 </body>
