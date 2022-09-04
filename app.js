@@ -124,7 +124,9 @@ function createNewGrid() {
     if (inputValue.value <= 50) {
       makeGrid(rows, columns);
     } else {
-      alert("OOOPss");
+      const errorMessage = document.querySelector("#error-message");
+      errorMessage.style.visibility = "visible";
+      errorMessage.classList.add("error-message-visible");
     }
   });
 }

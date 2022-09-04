@@ -3,6 +3,10 @@
   --grid-rows: 1;
 }
 
+* {
+  margin: 0;
+}
+
 #container {
   text-align: center;
 }
@@ -20,6 +24,7 @@
 .grid-item {
   display: grid;
   border: 1px solid black;
+  transition: 0.3s ease-in-out;
 }
 
 .grid-size {
@@ -30,4 +35,9 @@
 
 label {
   margin-right: 5px;
+}
+
+#error-message {
+  color: #ff0000;
+  visibility: hidden;
 }
