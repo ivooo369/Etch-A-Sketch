@@ -11,28 +11,34 @@
 </head>
 
 <body>
-    <div id="container">
-        <h1>Etch-A-Sketch</h1>
 
-        <div class="grid-size">
-            <button class="btn-set-grid-size">Set Grid Size</button>
-            <input type="text" id="grid-size">
-        </div>
-        <p id="error-message">Error! Please, enter a number that is less or equal to 50!</p>
-        <div class="grid"></div>
+    <header>
+        <h1>Etch-A-Sketch</h1>
+    </header>
+    <div class="grid-size">
+        <button class="btn-set-grid-size">Set Grid Size</button>
+        <input type="text" id="grid-size">
+    </div>
+    <p id="error-message">Error! Please, enter a number that is less or equal to 50!</p>
+    <main class="main-content">
         <div class="settings">
-            <label for="pen-color" class="label-custom-color" id="label-pen-color">Pen Color</label>
-            <input type="color" id="input-pen-color">
-            <label for="background-color" class="label-custom-color" id="label-background-color">Background
-                Color</label>
-            <input type="color" id="input-background-color">
+            <div class="div-pen-color">
+                <label for="pen-color" class="label-custom-color" id="label-pen-color">Pen Color</label>
+                <input type="color" id="input-pen-color" class="input-custom-color">
+            </div>
+            <div class="div-background-color">
+                <label for="background-color" class="label-custom-color" id="label-background-color">Background
+                    Color</label>
+                <input type="color" id="input-background-color" class="input-custom-color">
+            </div>
             <button id="btn-black">Black</button>
             <button id="btn-rainbow">Rainbow</button>
             <button id="btn-opacity">Opacity</button>
             <button id="btn-eraser">Eraser</button>
             <button id="btn-clear">Clear</button>
         </div>
-    </div>
+        <div class="grid"></div>
+    </main>
 </body>
 
 </html>

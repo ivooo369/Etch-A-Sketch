@@ -18,6 +18,7 @@ function makeGrid(rows, columns) {
     choseBackgroundColor();
     clickButtonBlack(cell);
     clickButtonRainbow(cell);
+    // clickButtonOpacity(cell);
     clickButtonEraser(cell);
     clickButtonClear();
   }
@@ -83,6 +84,21 @@ function clickButtonRainbow(cell) {
   });
 }
 
+// function opacity(cell) {
+//   cell.addEventListener("mouseenter", () => {
+//     if (isMouseDown) {
+//       cell.style.backgroundColor = `${randomColor}01`;
+//     }
+//   });
+// }
+
+// function clickButtonOpacity(cell) {
+//   const buttonOpacity = document.querySelector("#btn-opacity");
+//   buttonOpacity.addEventListener("click", () => {
+//     opacity(cell);
+//   });
+// }
+
 function erase(cell) {
   cell.addEventListener("mouseenter", () => {
     if (isMouseDown) {
@@ -119,14 +135,17 @@ function createNewGrid() {
   });
 
   const buttonNewGrid = document.querySelector(".btn-set-grid-size");
+  const errorMessage = document.querySelector("#error-message");
   buttonNewGrid.addEventListener("click", () => {
     document.querySelectorAll(".grid-item").forEach((e) => e.remove());
     if (inputValue.value <= 50) {
+      errorMessage.style.opacity = "0";
       makeGrid(rows, columns);
+      inputValue.value = "";
     } else {
-      const errorMessage = document.querySelector("#error-message");
-      errorMessage.style.visibility = "visible";
-      errorMessage.classList.add("error-message-visible");
+      errorMessage.style.opacity = "1";
+      errorMessage.style.transition = "0.3s ease-in-out";
+      inputValue.value = "";
     }
   });
 }
