@@ -18,7 +18,7 @@ function makeGrid(rows, columns) {
     choseBackgroundColor();
     clickButtonBlack(cell);
     clickButtonRainbow(cell);
-    // clickButtonOpacity(cell);
+    clickButtonOpacity(cell);
     clickButtonEraser(cell);
     clickButtonClear();
   }
@@ -26,104 +26,88 @@ function makeGrid(rows, columns) {
 
 makeGrid(15, 15);
 
-function setPenColor(cell) {
-  cell.addEventListener("mouseenter", () => {
-    if (isMouseDown) {
-      cell.style.backgroundColor = penCustomColor.value;
-    }
-  });
-}
-
 function chosePenColor(cell) {
-  penCustomColor.addEventListener("input", function () {
-    setPenColor(cell);
-  });
-}
-
-function setBackgroundColor() {
-  body.addEventListener("click", () => {
-    grid.style.backgroundColor = backgroundCustomColor.value;
+  penCustomColor.addEventListener("input", () => {
+    cell.addEventListener("mouseenter", () => {
+      if (isMouseDown) {
+        cell.style.backgroundColor = penCustomColor.value;
+      }
+    });
   });
 }
 
 function choseBackgroundColor() {
-  backgroundCustomColor.addEventListener("input", function () {
-    setBackgroundColor();
-  });
-}
-
-function fillCellBlack(cell) {
-  cell.addEventListener("mouseenter", () => {
-    if (isMouseDown) {
-      cell.style.backgroundColor = "black";
-    }
+  backgroundCustomColor.addEventListener("input", () => {
+    body.addEventListener("click", () => {
+      grid.style.backgroundColor = backgroundCustomColor.value;
+    });
   });
 }
 
 function clickButtonBlack(cell) {
   const buttonBlack = document.querySelector("#btn-black");
   buttonBlack.addEventListener("click", () => {
-    fillCellBlack(cell);
-  });
-}
-
-function fillCellRainbow(cell) {
-  cell.addEventListener("mouseenter", () => {
-    const rainbowColors = ["#9400D3", "#4B0082", "#0000FF", "#00FF00", "#FFFF00", "#FF7F00", "#FF0000"];
-    const randomColor = rainbowColors[Math.floor(Math.random() * rainbowColors.length)];
-    if (isMouseDown) {
-      cell.style.backgroundColor = randomColor;
-    }
+    cell.addEventListener("mouseenter", () => {
+      if (isMouseDown) {
+        cell.style.backgroundColor = "black";
+      }
+    });
   });
 }
 
 function clickButtonRainbow(cell) {
   const buttonRainbow = document.querySelector("#btn-rainbow");
   buttonRainbow.addEventListener("click", () => {
-    fillCellRainbow(cell);
+    cell.addEventListener("mouseenter", () => {
+      const rainbowColors = ["#9400D3", "#4B0082", "#0000FF", "#00FF00", "#FFFF00", "#FF7F00", "#FF0000"];
+      const randomColor = rainbowColors[Math.floor(Math.random() * rainbowColors.length)];
+      if (isMouseDown) {
+        cell.style.backgroundColor = randomColor;
+      }
+    });
   });
 }
 
-// function opacity(cell) {
-//   cell.addEventListener("mouseenter", () => {
-//     if (isMouseDown) {
-//       cell.style.backgroundColor = `${randomColor}01`;
-//     }
-//   });
-// }
-
-// function clickButtonOpacity(cell) {
-//   const buttonOpacity = document.querySelector("#btn-opacity");
-//   buttonOpacity.addEventListener("click", () => {
-//     opacity(cell);
-//   });
-// }
-
-function erase(cell) {
-  cell.addEventListener("mouseenter", () => {
-    if (isMouseDown) {
-      cell.style.backgroundColor = "";
-    }
+function clickButtonOpacity(cell) {
+  const buttonOpacity = document.querySelector("#btn-opacity");
+  buttonOpacity.addEventListener("click", () => {
+    cell.addEventListener("mouseenter", function () {
+      if (isMouseDown) {
+        if (this.style.backgroundColor.match(/rgba/)) {
+          let currentOpacity = Number(this.style.backgroundColor.slice(-4, -1));
+          if (currentOpacity <= 0.9) {
+            this.style.backgroundColor = `rgba(0, 0, 0, ${currentOpacity + 0.1})`;
+            // this.classList.add("gray");
+          }
+        } else if (this.style.backgroundColor == "rgb(0, 0, 0)") {
+          return;
+        } else {
+          this.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        }
+      }
+    });
   });
 }
 
 function clickButtonEraser(cell) {
   const buttonEraser = document.querySelector("#btn-eraser");
   buttonEraser.addEventListener("click", () => {
-    erase(cell);
-  });
-}
-
-function clear() {
-  grid.childNodes.forEach((child) => {
-    child.style.backgroundColor = "white";
+    cell.addEventListener("mouseenter", () => {
+      if (isMouseDown) {
+        cell.style.backgroundColor = "";
+        // cell.style.opacity = 1;
+      }
+    });
   });
 }
 
 function clickButtonClear() {
   const buttonClear = document.querySelector("#btn-clear");
   buttonClear.addEventListener("click", () => {
-    clear();
+    grid.childNodes.forEach((child) => {
+      child.style.backgroundColor = "#ffffff";
+      // child.style.opacity = 1;
+    });
   });
 }
 
@@ -139,11 +123,11 @@ function createNewGrid() {
   buttonNewGrid.addEventListener("click", () => {
     document.querySelectorAll(".grid-item").forEach((e) => e.remove());
     if (inputValue.value <= 50) {
-      errorMessage.style.opacity = "0";
+      errorMessage.style.opacity = 0;
       makeGrid(rows, columns);
       inputValue.value = "";
     } else {
-      errorMessage.style.opacity = "1";
+      errorMessage.style.opacity = 1;
       errorMessage.style.transition = "0.3s ease-in-out";
       inputValue.value = "";
     }

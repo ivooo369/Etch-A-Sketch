@@ -36,6 +36,7 @@ header {
   display: grid;
   border: 1px solid black;
   transition: 0.3s ease-in-out;
+  margin: 0px;
 }
 
 .grid-size {
