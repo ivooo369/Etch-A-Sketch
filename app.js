@@ -1,114 +1,140 @@
-const body = document.querySelector("body");
-const cell = document.querySelector(".grid-item");
-const grid = document.querySelector(".grid");
-const penCustomColor = document.querySelector("#input-pen-color");
-const backgroundCustomColor = document.querySelector("#input-background-color");
+const DEFAULT_COLOR = "#000000";
+const DEFAULT_MODE = "black";
+const DEFAULT_SIZE = 16;
+
+let currentColor = DEFAULT_COLOR;
+let currentSetting = DEFAULT_MODE;
+let currentSize = DEFAULT_SIZE;
 
 let isMouseDown = false;
 document.body.onmousedown = () => (isMouseDown = true);
 document.body.onmouseup = () => (isMouseDown = false);
 
-function makeGrid(rows, columns) {
-  grid.style.setProperty("--grid-rows", rows);
-  grid.style.setProperty("--grid-cols", columns);
-  for (i = 0; i < rows * columns; i++) {
-    let cell = document.createElement("div");
-    grid.appendChild(cell).className = "grid-item";
-    chosePenColor(cell);
-    choseBackgroundColor();
-    clickButtonBlack(cell);
-    clickButtonRainbow(cell);
-    clickButtonOpacity(cell);
-    clickButtonEraser(cell);
-    clickButtonClear();
+let isEveryBarRemoved = false;
+
+const grid = document.querySelector(".grid");
+const penCustomColor = document.querySelector("#input-pen-color");
+const backgroundCustomColor = document.querySelector("#input-background-color");
+const buttonRainbow = document.querySelector("#btn-rainbow");
+const buttonOpacity = document.querySelector("#btn-opacity");
+const buttonEraser = document.querySelector("#btn-eraser");
+const buttonRemoveBars = document.querySelector("#btn-remove-bars");
+const buttonClear = document.querySelector("#btn-clear");
+
+penCustomColor.oninput = () => setCurrentSetting("pen-custom-color");
+backgroundCustomColor.oninput = () => (grid.style.backgroundColor = backgroundCustomColor.value);
+buttonRainbow.onclick = () => setCurrentSetting("rainbow");
+buttonOpacity.onclick = () => setCurrentSetting("opacity");
+buttonEraser.onclick = () => setCurrentSetting("eraser");
+buttonRemoveBars.onclick = () => removeBars();
+buttonClear.onclick = () => clearGrid();
+
+function setCurrentColor(newColor) {
+  currentColor = newColor;
+}
+
+function setCurrentSetting(newSetting) {
+  activateButton(newSetting);
+  currentSetting = newSetting;
+}
+
+function setCurrentSize(newSize) {
+  currentSize = newSize;
+}
+
+function removeBars() {
+  if (!isEveryBarRemoved) {
+    grid.childNodes.forEach((child) => {
+      child.style.border = "none";
+    });
+    isEveryBarRemoved = true;
+  } else if (isEveryBarRemoved) {
+    grid.childNodes.forEach((child) => {
+      child.style.border = "1px solid black";
+    });
+    isEveryBarRemoved = false;
   }
 }
 
-makeGrid(15, 15);
+function clearGrid() {
+  // makeGrid(DEFAULT_SIZE);
+  activateButton(DEFAULT_MODE);
 
-function chosePenColor(cell) {
-  penCustomColor.addEventListener("input", () => {
-    cell.addEventListener("mouseenter", () => {
-      if (isMouseDown) {
-        cell.style.backgroundColor = penCustomColor.value;
-      }
-    });
+  grid.style.backgroundColor = "";
+  grid.childNodes.forEach((child) => {
+    child.style.backgroundColor = "";
   });
 }
 
-function choseBackgroundColor() {
-  backgroundCustomColor.addEventListener("input", () => {
-    body.addEventListener("click", () => {
-      grid.style.backgroundColor = backgroundCustomColor.value;
-    });
-  });
+function makeGrid(size) {
+  grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+  grid.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+
+  for (let i = 0; i < size * size; i++) {
+    const cell = document.createElement("div");
+    cell.classList.add("grid-item");
+    cell.addEventListener("mouseenter", changeColorSettings);
+    cell.addEventListener("mousedown", changeColorSettings);
+    grid.appendChild(cell);
+  }
 }
 
-function clickButtonBlack(cell) {
-  const buttonBlack = document.querySelector("#btn-black");
-  buttonBlack.addEventListener("click", () => {
-    cell.addEventListener("mouseenter", () => {
-      if (isMouseDown) {
-        cell.style.backgroundColor = "black";
-      }
-    });
-  });
+makeGrid(DEFAULT_SIZE);
+
+function changeColorSettings(e) {
+  if (e.type === "mouseenter" && !isMouseDown) return;
+  if (currentSetting === "pen-custom-color") {
+    e.target.style.backgroundColor = penCustomColor.value;
+  } else if (currentSetting === "rainbow") {
+    const rainbowColors = ["#9400D3", "#4B0082", "#0000FF", "#00FF00", "#FFFF00", "#FF7F00", "#FF0000"];
+    const randomColor = rainbowColors[Math.floor(Math.random() * rainbowColors.length)];
+    e.target.style.backgroundColor = randomColor;
+  } else if (currentSetting === "opacity") {
+    let currentOpacity = Number(e.target.style.backgroundColor.slice(-4, -1));
+    if (currentOpacity <= 0.9) {
+      e.target.style.backgroundColor = `rgba(0, 0, 0, ${currentOpacity + 0.1})`;
+    } else if (e.target.style.backgroundColor == "rgb(0, 0, 0)") {
+      return;
+    } else {
+      e.target.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+    }
+  } else if (currentSetting === "eraser") {
+    e.target.style.backgroundColor = "";
+  }
 }
 
-function clickButtonRainbow(cell) {
-  const buttonRainbow = document.querySelector("#btn-rainbow");
-  buttonRainbow.addEventListener("click", () => {
-    cell.addEventListener("mouseenter", () => {
-      const rainbowColors = ["#9400D3", "#4B0082", "#0000FF", "#00FF00", "#FFFF00", "#FF7F00", "#FF0000"];
-      const randomColor = rainbowColors[Math.floor(Math.random() * rainbowColors.length)];
-      if (isMouseDown) {
-        cell.style.backgroundColor = randomColor;
-      }
-    });
-  });
-}
+function activateButton(newMode) {
+  if (currentSetting === "pen-custom-color") {
+    penCustomColor.classList.remove("active");
+  } else if (currentSetting === "background-custom-color") {
+    backgroundCustomColor.classList.remove("active");
+  } else if (currentSetting === "rainbow") {
+    buttonRainbow.classList.remove("active");
+  } else if (currentSetting === "opacity") {
+    buttonOpacity.classList.remove("active");
+  } else if (currentSetting === "eraser") {
+    buttonEraser.classList.remove("active");
+  } else if (currentSetting === "remove-bars") {
+    buttonRemoveBars.classList.remove("active");
+  } else if (currentSetting === "clear") {
+    buttonClear.classList.remove("active");
+  }
 
-function clickButtonOpacity(cell) {
-  const buttonOpacity = document.querySelector("#btn-opacity");
-  buttonOpacity.addEventListener("click", () => {
-    cell.addEventListener("mouseenter", function () {
-      if (isMouseDown) {
-        if (this.style.backgroundColor.match(/rgba/)) {
-          let currentOpacity = Number(this.style.backgroundColor.slice(-4, -1));
-          if (currentOpacity <= 0.9) {
-            this.style.backgroundColor = `rgba(0, 0, 0, ${currentOpacity + 0.1})`;
-            // this.classList.add("gray");
-          }
-        } else if (this.style.backgroundColor == "rgb(0, 0, 0)") {
-          return;
-        } else {
-          this.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-        }
-      }
-    });
-  });
-}
-
-function clickButtonEraser(cell) {
-  const buttonEraser = document.querySelector("#btn-eraser");
-  buttonEraser.addEventListener("click", () => {
-    cell.addEventListener("mouseenter", () => {
-      if (isMouseDown) {
-        cell.style.backgroundColor = "";
-        // cell.style.opacity = 1;
-      }
-    });
-  });
-}
-
-function clickButtonClear() {
-  const buttonClear = document.querySelector("#btn-clear");
-  buttonClear.addEventListener("click", () => {
-    grid.childNodes.forEach((child) => {
-      child.style.backgroundColor = "#ffffff";
-      // child.style.opacity = 1;
-    });
-  });
+  if (newMode === "pen-custom-color") {
+    penCustomColor.classList.add("active");
+  } else if (newMode === "background-custom-color") {
+    backgroundCustomColor.classList.add("active");
+  } else if (newMode === "rainbow") {
+    buttonRainbow.classList.add("active");
+  } else if (newMode === "opacity") {
+    buttonOpacity.classList.add("active");
+  } else if (newMode === "eraser") {
+    buttonEraser.classList.add("active");
+  } else if (newMode === "remove-bars") {
+    buttonRemoveBars.classList.add("active");
+  } else if (newMode === "clear") {
+    buttonClear.classList.add("active");
+  }
 }
 
 function createNewGrid() {
