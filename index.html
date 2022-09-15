@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="app.js" defer></script>
     <title>Etch-A-Sketch</title>
@@ -16,20 +17,25 @@
         <h1>Etch-A-Sketch</h1>
     </header>
     <div class="grid-size">
-        <button class="btn-set-grid-size">Set Grid Size</button>
+        <button id="btn-set-grid-size">Set Grid Size</button>
         <input type="text" id="grid-size">
     </div>
-    <p id="error-message">Error! Please, enter a number that is less or equal to 50!</p>
+    <p id="error-message"> <i class="material-icons">error</i> Error! Please, enter a number that is greater than 0 and
+        less or equal to 50!</p>
     <main class="main-content">
         <div class="settings">
-            <div class="div-pen-color">
-                <label for="pen-color" class="label-custom-color" id="label-pen-color">Pen Color</label>
-                <input type="color" id="input-pen-color" class="input-custom-color">
+            <div class="div-custom-color">
+                <div class="div-pen-color">
+                    <input type="color" id="input-pen-color" class="input-custom-color">
+                </div>
+                <label for="input-pen-color" class="label-custom-color" id="label-pen-color">Pen Color</label>
             </div>
-            <div class="div-background-color">
-                <label for="background-color" class="label-custom-color" id="label-background-color">Background
+            <div class="div-custom-color">
+                <div class="div-background-color">
+                    <input type="color" id="input-background-color" class="input-custom-color">
+                </div>
+                <label for="input-background-color" class="label-custom-color" id="label-background-color">Background
                     Color</label>
-                <input type="color" id="input-background-color" class="input-custom-color">
             </div>
             <button id="btn-rainbow">Rainbow</button>
             <button id="btn-opacity">Opacity</button>

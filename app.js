@@ -140,23 +140,24 @@ function activateButton(newMode) {
 function createNewGrid() {
   let inputValue = document.querySelector("#grid-size");
   inputValue.addEventListener("input", () => {
-    rows = inputValue.value;
-    columns = inputValue.value;
+    size = inputValue.value;
   });
 
-  const buttonNewGrid = document.querySelector(".btn-set-grid-size");
+  const buttonNewGrid = document.querySelector("#btn-set-grid-size");
   const errorMessage = document.querySelector("#error-message");
   buttonNewGrid.addEventListener("click", () => {
     document.querySelectorAll(".grid-item").forEach((e) => e.remove());
-    if (inputValue.value <= 50) {
+    if (inputValue.value > 0 && inputValue.value <= 50 && inputValue.value !== "") {
       errorMessage.style.opacity = 0;
-      makeGrid(rows, columns);
+      makeGrid(size);
       inputValue.value = "";
     } else {
       errorMessage.style.opacity = 1;
       errorMessage.style.transition = "0.3s ease-in-out";
       inputValue.value = "";
+      buttonNewGrid.disabled = true;
     }
+    buttonNewGrid.disabled = false;
   });
 }
 
