@@ -20,22 +20,24 @@
         <button id="btn-set-grid-size">Set Grid Size</button>
         <input type="text" id="grid-size">
     </div>
-    <p id="error-message"> <i class="material-icons">error</i> Error! Please, enter a number that is greater than 0 and
-        less or equal to 50!</p>
+    <p id="error-message"> <i class="material-icons">error</i> Error! Please, enter a number from 1 to 50!</p>
     <main class="main-content">
         <div class="settings">
-            <div class="div-custom-color">
-                <div class="div-pen-color">
-                    <input type="color" id="input-pen-color" class="input-custom-color">
+            <div class="div-pen-and-background">
+                <div class="div-custom-color">
+                    <div class="div-pen-color">
+                        <input type="color" id="input-pen-color" class="input-custom-color">
+                    </div>
+                    <label for="input-pen-color" class="label-custom-color" id="label-pen-color">Pen Color</label>
                 </div>
-                <label for="input-pen-color" class="label-custom-color" id="label-pen-color">Pen Color</label>
-            </div>
-            <div class="div-custom-color">
-                <div class="div-background-color">
-                    <input type="color" id="input-background-color" class="input-custom-color">
+                <div class="div-custom-color">
+                    <div class="div-background-color">
+                        <input type="color" id="input-background-color" class="input-custom-color">
+                    </div>
+                    <label for="input-background-color" class="label-custom-color"
+                        id="label-background-color">Background
+                        Color</label>
                 </div>
-                <label for="input-background-color" class="label-custom-color" id="label-background-color">Background
-                    Color</label>
             </div>
             <button id="btn-rainbow">Rainbow</button>
             <button id="btn-opacity">Opacity</button>

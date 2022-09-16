@@ -18,6 +18,11 @@ header {
   padding: 20px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   color: linear-gradient(red, blue);
+  text-decoration: underline;
+}
+
+h1 {
+  font-size: 40px;
 }
 
 .main-content {
@@ -31,6 +36,7 @@ header {
 
 .grid {
   display: grid;
+  padding: 5px;
   background-color: #ffffff;
   text-align: center;
   width: 500px;
@@ -127,6 +133,12 @@ input[type="color"] {
   transform: scale(1.5);
 }
 
+.div-pen-and-background {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .settings button {
   padding: 10px;
   border-radius: 5px;
@@ -161,4 +173,104 @@ input[type="color"]:hover {
 .settings button:active {
   transform: translateY(4px);
   box-shadow: 3px 5px black;
+}
+
+@media (max-width: 1100px) {
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  header {
+    padding: 10px;
+  }
+
+  #btn-set-grid-size {
+    font-size: 14px;
+    box-shadow: 2px 4px black;
+  }
+
+  input[type="text"] {
+    height: 24px;
+    box-shadow: 2px 4px black;
+  }
+
+  #error-message {
+    margin: 8px;
+  }
+
+  .div-pen-and-background {
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 8px;
+    gap: 15px;
+  }
+
+  .label-custom-color {
+    margin-left: 5px;
+    padding: 5px;
+  }
+
+  .material-icons {
+    font-size: 22px;
+  }
+
+  .main-content {
+    justify-content: center;
+    flex-direction: column;
+    gap: 17px;
+  }
+
+  .grid {
+    margin: auto;
+    width: 375px;
+    height: 375px;
+    box-shadow: 7px 12px;
+  }
+
+  .settings {
+    text-align: center;
+    display: inline-block;
+    gap: 22px;
+    width: 100%;
+  }
+
+  .settings button {
+    padding: 5px;
+    width: 150px;
+    box-shadow: 3px 7px black;
+    margin: 5px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  .grid {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 809px) {
+  .main-content {
+    gap: 25px;
+  }
+}
+
+@media (min-width: 809px) and (max-width: 1100px) {
+  .grid {
+    width: 400px;
+    height: 400px;
+  }
+
+  .div-pen-and-background {
+    margin-bottom: 15px;
+  }
+
+  .main-content {
+    gap: 40px;
+  }
 }
