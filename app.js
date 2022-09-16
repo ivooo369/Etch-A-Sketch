@@ -34,7 +34,6 @@ function setCurrentColor(newColor) {
 }
 
 function setCurrentSetting(newSetting) {
-  activateButton(newSetting);
   currentSetting = newSetting;
 }
 
@@ -57,9 +56,6 @@ function removeBars() {
 }
 
 function clearGrid() {
-  // makeGrid(DEFAULT_SIZE);
-  activateButton(DEFAULT_MODE);
-
   grid.style.backgroundColor = "";
   grid.childNodes.forEach((child) => {
     child.style.backgroundColor = "";
@@ -100,40 +96,6 @@ function changeColorSettings(e) {
     }
   } else if (currentSetting === "eraser") {
     e.target.style.backgroundColor = "";
-  }
-}
-
-function activateButton(newMode) {
-  if (currentSetting === "pen-custom-color") {
-    penCustomColor.classList.remove("active");
-  } else if (currentSetting === "background-custom-color") {
-    backgroundCustomColor.classList.remove("active");
-  } else if (currentSetting === "rainbow") {
-    buttonRainbow.classList.remove("active");
-  } else if (currentSetting === "opacity") {
-    buttonOpacity.classList.remove("active");
-  } else if (currentSetting === "eraser") {
-    buttonEraser.classList.remove("active");
-  } else if (currentSetting === "remove-bars") {
-    buttonRemoveBars.classList.remove("active");
-  } else if (currentSetting === "clear") {
-    buttonClear.classList.remove("active");
-  }
-
-  if (newMode === "pen-custom-color") {
-    penCustomColor.classList.add("active");
-  } else if (newMode === "background-custom-color") {
-    backgroundCustomColor.classList.add("active");
-  } else if (newMode === "rainbow") {
-    buttonRainbow.classList.add("active");
-  } else if (newMode === "opacity") {
-    buttonOpacity.classList.add("active");
-  } else if (newMode === "eraser") {
-    buttonEraser.classList.add("active");
-  } else if (newMode === "remove-bars") {
-    buttonRemoveBars.classList.add("active");
-  } else if (newMode === "clear") {
-    buttonClear.classList.add("active");
   }
 }
 
