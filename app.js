@@ -16,7 +16,7 @@ const grid = document.querySelector(".grid");
 const penCustomColor = document.querySelector("#input-pen-color");
 const backgroundCustomColor = document.querySelector("#input-background-color");
 const buttonRainbow = document.querySelector("#btn-rainbow");
-const buttonOpacity = document.querySelector("#btn-opacity");
+const buttonGrayscale = document.querySelector("#btn-grayscale");
 const buttonEraser = document.querySelector("#btn-eraser");
 const buttonRemoveBars = document.querySelector("#btn-remove-bars");
 const buttonClear = document.querySelector("#btn-clear");
@@ -24,7 +24,7 @@ const buttonClear = document.querySelector("#btn-clear");
 penCustomColor.oninput = () => setCurrentSetting("pen-custom-color");
 backgroundCustomColor.oninput = () => (grid.style.backgroundColor = backgroundCustomColor.value);
 buttonRainbow.onclick = () => setCurrentSetting("rainbow");
-buttonOpacity.onclick = () => setCurrentSetting("opacity");
+buttonGrayscale.onclick = () => setCurrentSetting("grayscale");
 buttonEraser.onclick = () => setCurrentSetting("eraser");
 buttonRemoveBars.onclick = () => removeBars();
 buttonClear.onclick = () => clearGrid();
@@ -85,7 +85,7 @@ function changeColorSettings(e) {
     const rainbowColors = ["#9400D3", "#4B0082", "#0000FF", "#00FF00", "#FFFF00", "#FF7F00", "#FF0000"];
     const randomColor = rainbowColors[Math.floor(Math.random() * rainbowColors.length)];
     e.target.style.backgroundColor = randomColor;
-  } else if (currentSetting === "opacity") {
+  } else if (currentSetting === "grayscale") {
     let currentOpacity = Number(e.target.style.backgroundColor.slice(-4, -1));
     if (currentOpacity <= 0.9) {
       e.target.style.backgroundColor = `rgba(0, 0, 0, ${currentOpacity + 0.1})`;
