@@ -2,10 +2,15 @@
   margin: 0;
 }
 
+html {
+  min-height: 100%;
+}
+
 body {
-  height: 100vh;
+  min-height: 100%;
   background-image: linear-gradient(45deg, #85ffbd 0%, #fffb7d 100%);
   font-family: fantasy;
+  overflow: auto;
 }
 
 header {
@@ -26,7 +31,7 @@ h1 {
   justify-content: flex-start;
   gap: 95px;
   max-width: 1100px;
-  margin: 0 auto;
+  margin: 0 auto 30px auto;
 }
 
 .grid {
@@ -215,7 +220,7 @@ input[type="color"]:hover {
   }
 
   .grid {
-    margin: auto;
+    margin: auto auto 25px auto;
     width: 375px;
     height: 375px;
     box-shadow: 7px 12px;
