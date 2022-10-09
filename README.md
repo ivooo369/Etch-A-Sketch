@@ -1,6 +1,6 @@
 # Etch-A-Sketch
 
-I made this project during the Foundation part ot The Odin Project curricilum. It is something like a sketchpad with some cool features.
+I made this project during the Foundation part ot The Odin Project curriculum. It is something like a sketchpad with some cool features.
 
 ## Features:
 
